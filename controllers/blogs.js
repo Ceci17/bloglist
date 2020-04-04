@@ -1,14 +1,31 @@
 const blogsRouter = require("express").Router();
 const Blog = require("../models/blog");
 
-blogsRouter.get("/", (request, response, next) => {
-  Blog.find({}).then(blogs => response.json(blogs));
+blogsRouter.get("/", async (request, response, next) => {
+  const blogs = await Blog.find({});
+  return response.json(blogs);
 });
 
-blogsRouter.post("/", (request, response, next) => {
+blogsRouter.get("/:id", async (request, response, next) => {
+  const blog = await Blog.findById(request.params.id);
+  return response.json(blog);
+});
+
+blogsRouter.post("/", async (request, response, next) => {
+  if (!request.body.title && !request.body.url) {
+    return response.status(400).json({ error: "name or url missing" });
+  }
+  if (!request.body.likes) request.body.likes = 0;
+
   const blog = new Blog(request.body);
 
-  blog.save().then(result => response.status(201).json(result));
+  const result = await blog.save();
+  return response.status(201).json(result);
+});
+
+blogsRouter.delete("/:id", async (request, response, next) => {
+  await Blog.findByIdAndRemove(request.params.id);
+  return response.status(204).end();
 });
 
 module.exports = blogsRouter;

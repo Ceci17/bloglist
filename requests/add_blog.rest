@@ -2,8 +2,7 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "Should I useState or useReducer?",
-    "author": "Kent C. Dodds",
-    "url": "https://kentcdodds.com/blog/should-i-usestate-or-usereducer",
-    "likes": 17
+    "title": "Yoga Effects on Brain Health: A Systematic Review of the Current Literature",
+    "author": "Neha P. Gothea, Imadh Khan",
+    "url": "https://content.iospress.com/articles/brain-plasticity/bpl190084"
 }
