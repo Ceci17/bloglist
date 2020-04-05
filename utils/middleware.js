@@ -1,3 +1,23 @@
+// TODO: Token Extractor middleware
+// const jwt = require("jsonwebtoken");
+
+// const tokenExtractor = (request, response, next) => {
+//   try {
+//     const token = req.headers.authorization.split(" ")[1];
+//     const decodedToken = jwt.verify(token, process.env.SECRET);
+//     const userId = decodedToken.userId;
+//     if (request.body.userId && request.body.userId !== userId) {
+//       throw "Invalid user ID";
+//     } else {
+//       next();
+//     }
+//   } catch {
+//     response.status(401).json({
+//       error: new Error("Invalid request!")
+//     });
+//   }
+// };
+
 const unknownEndpoint = (_, response) => {
   response.status(404).send({ error: "unknown endpoint" });
 };

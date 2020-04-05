@@ -1,0 +1,10 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InR1cGFjX3NoYWt1ciIsImlkIjoiNWU4OWZhM2U4ZTliMDY3Mjk0ZjFkMDVjIiwiaWF0IjoxNTg2MTAxMzQ3fQ.flAsyxwlIHmQ7-V05iT6FRWNblfP2vBdNVlmQQVVGTM
+
+{
+    "title": "California Love",
+    "author": "Tupac Shakur",
+    "url": "https://www.amazon.com/Hitchhikers-Guide-Galaxy-Douglas-Adams/dp/0345391802",
+    "likes": 99
+}
