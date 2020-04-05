@@ -1,0 +1,9 @@
+PUT http://localhost:3003/api/blogs/5e88fd2ad1b2b48eb135d17e
+Content-Type: application/json
+
+{
+  "title": "The Hitchhiker's Guide to the Galaxy",
+  "author": "Douglas Adams",
+  "url": "https://www.amazon.com/Hitchhikers-Guide-Galaxy-Douglas-Adams/dp/0345391802",
+  "likes": 42
+}

@@ -2,7 +2,8 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "Yoga Effects on Brain Health: A Systematic Review of the Current Literature",
-    "author": "Neha P. Gothea, Imadh Khan",
-    "url": "https://content.iospress.com/articles/brain-plasticity/bpl190084"
+    "title": "The Hitchhiker's Guide to the Galaxy",
+    "author": "Douglas Adams",
+    "url": "https://www.amazon.com/Hitchhikers-Guide-Galaxy-Douglas-Adams/dp/0345391802",
+    "likes": 9
 }
