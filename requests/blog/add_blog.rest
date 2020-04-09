@@ -1,10 +1,10 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InR1cGFjX3NoYWt1ciIsImlkIjoiNWU4OWZhM2U4ZTliMDY3Mjk0ZjFkMDVjIiwiaWF0IjoxNTg2MTAxMzQ3fQ.flAsyxwlIHmQ7-V05iT6FRWNblfP2vBdNVlmQQVVGTM
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRvdWdsYXNfYWRhbXMiLCJpZCI6IjVlODllZjlkYWY3YjRlNTk1YTIxZTVlZSIsImlhdCI6MTU4NjQ2NjU3MH0.ZNzI967XgvuLKqOnTRozub6JbOxmEScpgyEFxYQmN50
 
 {
-    "title": "California Love",
-    "author": "Tupac Shakur",
+    "title": "The Hitchhiker's Guide to the Galaxy",
+    "author": "Douglas Adams",
     "url": "https://www.amazon.com/Hitchhikers-Guide-Galaxy-Douglas-Adams/dp/0345391802",
-    "likes": 99
+    "likes": 42
 }
