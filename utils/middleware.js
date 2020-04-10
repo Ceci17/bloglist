@@ -12,7 +12,7 @@ const unknownEndpoint = (_, response) => {
   response.status(404).send({ error: "unknown endpoint" });
 };
 
-const errorHandler = (error, request, response, next) => {
+const errorHandler = (error, _, response, next) => {
   console.log(error.message);
 
   if (error.name === "CastError" && error.kind === "ObjectId") {

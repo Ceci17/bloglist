@@ -9,6 +9,21 @@ const Blog = require("../models/blog");
 const User = require("../models/user");
 const helper = require("../utils/test_helper");
 
+describe("login", () => {
+  test("it should login successfully with correct credentials", async () => {
+    await api
+      .post("/api/login")
+      .send({ username: "johhny", password: "cheepcheepcheep" })
+      .expect(200);
+  });
+  test("it should respond with status 401 with wrong credentials", async () => {
+    await api
+      .post("/api/login")
+      .send({ username: "johny", password: "cheepcheep" })
+      .expect(401);
+  });
+});
+
 describe("when there is initially one user at db", () => {
   beforeEach(async () => {
     await User.deleteMany({});
@@ -271,7 +286,7 @@ describe("when there is initially some notes saved", () => {
       token = response.body.token;
     });
 
-    test("succeeds with status code 204 if id is valid", async () => {
+    test("succeeds with status code 204 if user has persmisson", async () => {
       const decodedToken = jwt.verify(token, process.env.SECRET);
 
       const user = await User.findById(decodedToken.id);
@@ -308,6 +323,29 @@ describe("when there is initially some notes saved", () => {
       const title = blogsAtEnd.map((blog) => blog.title);
 
       expect(title).not.toContain(blogToDelete.title);
+    });
+
+    test("responds with status code 401 Unauthorized if user don't have a permission", async () => {
+      const decodedToken = jwt.verify(token, process.env.SECRET);
+
+      const user = await User.findById(decodedToken.id);
+
+      const blogsAtStart = await helper.blogsInDb();
+
+      const blogToDelete = blogsAtStart[0];
+
+      await api
+        .delete(`/api/blogs/${blogToDelete.id}`)
+        .set("Authorization", `bearer ${token}`)
+        .expect(403);
+
+      const blogsAtEnd = await helper.blogsInDb();
+
+      expect(blogsAtEnd).toHaveLength(blogsAtStart.length);
+
+      const title = blogsAtEnd.map((blog) => blog.title);
+
+      expect(title).toContain(blogToDelete.title);
     });
   });
 });
