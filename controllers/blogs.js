@@ -93,14 +93,6 @@ blogsRouter.delete("/:id", async (request, response, next) => {
   const blog = await Blog.findById(request.params.id);
 
   if (!(blog.user.toString() === decodedToken.id)) {
-    console.log(
-      "ID",
-      blog.user,
-      decodedToken.id,
-      typeof blog.user,
-      typeof decodedToken.id,
-      blog.user.toString() === decodedToken.id
-    );
     return response.status(403).json({ error: "you don’t have permission" });
   }
 
