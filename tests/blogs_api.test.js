@@ -53,17 +53,6 @@ describe("when there is initially some notes saved", () => {
     const blogObjects = helper.initialBlogs.map((blog) => new Blog(blog));
     const promiseArray = blogObjects.map((blog) => blog.save());
     await Promise.all(promiseArray);
-
-    // let token = null;
-
-    // api
-    //   .post("/api/login")
-    //   .send({ username: "johhny", password: "cheepcheepcheep" })
-    //   .end((err, response) => {
-    //     token = response.body.token;
-    //     done();
-    //   });
-    // console.log("TOKEN", token);
   });
 
   test("blogs are returned as json", async () => {
