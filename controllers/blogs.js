@@ -11,12 +11,12 @@ const User = require("../models/user");
 //   return null;
 // };
 
-blogsRouter.get("/", async (_, response, next) => {
+blogsRouter.get("/", async (_, response) => {
   const blogs = await Blog.find({}).populate("user", { username: 1, name: 1 });
   return response.json(blogs);
 });
 
-blogsRouter.get("/:id", async (request, response, next) => {
+blogsRouter.get("/:id", async (request, response) => {
   const blog = await Blog.findById(request.params.id);
   if (blog) {
     return response.json(blog);
@@ -25,7 +25,7 @@ blogsRouter.get("/:id", async (request, response, next) => {
   }
 });
 
-blogsRouter.put("/:id", async (request, response, next) => {
+blogsRouter.put("/:id", async (request, response) => {
   const body = request.body;
 
   const token = request.token;
@@ -36,7 +36,7 @@ blogsRouter.put("/:id", async (request, response, next) => {
   }
 
   if (!body.title || !body.url) {
-    return response.send(400).json({ error: "name or url missing" });
+    return response.status(400).json({ error: "name or url missing" });
   }
   const blog = {
     title: body.title,
@@ -82,7 +82,7 @@ blogsRouter.post("/", async (request, response, next) => {
   response.json(savedBlog);
 });
 
-blogsRouter.delete("/:id", async (request, response, next) => {
+blogsRouter.delete("/:id", async (request, response) => {
   const token = request.token;
 
   const decodedToken = jwt.verify(token, process.env.SECRET);

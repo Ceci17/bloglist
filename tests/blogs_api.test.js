@@ -16,7 +16,7 @@ describe("login", () => {
       .send({ username: "johhny", password: "cheepcheepcheep" })
       .expect(200);
   });
-  test("it should respond with status 401 with wrong credentials", async () => {
+  test("it should respond with status 401 when wrong credentials", async () => {
     await api
       .post("/api/login")
       .send({ username: "johny", password: "cheepcheep" })
@@ -112,11 +112,11 @@ describe("when there is initially some notes saved", () => {
       await api.get(`/api/blogs/${validNonexistingId}`).expect(404);
     });
 
-    // test("fails with statuscode 400 if id is invalid", async () => {
-    //   const invalidId = "5a3d5da59070081a82a3445";
+    test("fails with statuscode 400 if id is invalid", async () => {
+      const invalidId = "5a3d5da59070081a82a3445";
 
-    //   await api.get(`/api/blogs/${invalidId}`).expect(400);
-    // });
+      await api.get(`/api/blogs/${invalidId}`).expect(400);
+    });
   });
 
   describe("adition of a new blog", () => {
@@ -128,6 +128,26 @@ describe("when there is initially some notes saved", () => {
         .send({ username: "johhny", password: "cheepcheepcheep" });
 
       token = response.body.token;
+    });
+
+    test("it shouldn't create blog post if not authenticated and respond with status code 401", async () => {
+      const newBlog = new Blog({
+        title:
+          "Structure and Interpretation of Computer Programs — JavaScript Adaptation",
+        author: "Martin Henz and Tobias Wrigstad",
+        url: "https://sicp.comp.nus.edu.sg",
+        likes: 0,
+      });
+
+      await api.post("/api/blogs").send(newBlog).expect(401);
+
+      const blogsAtEnd = await helper.blogsInDb();
+      expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length);
+
+      const contents = blogsAtEnd.map((blog) => blog.title);
+      expect(contents).not.toContain(
+        "Structure and Interpretation of Computer Programs — JavaScript Adaptation"
+      );
     });
 
     test("successfully creates a new blog post if authenticated", async () => {
@@ -325,11 +345,7 @@ describe("when there is initially some notes saved", () => {
       expect(title).not.toContain(blogToDelete.title);
     });
 
-    test("responds with status code 401 Unauthorized if user don't have a permission", async () => {
-      const decodedToken = jwt.verify(token, process.env.SECRET);
-
-      const user = await User.findById(decodedToken.id);
-
+    test("responds with status code 403 if user don't have a permission", async () => {
       const blogsAtStart = await helper.blogsInDb();
 
       const blogToDelete = blogsAtStart[0];
