@@ -1,4 +1,3 @@
-// TODO: Token Extractor middleware
 const logger = require("../utils/logger");
 
 const tokenExtractor = (request, _, next) => {
