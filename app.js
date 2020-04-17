@@ -9,13 +9,14 @@ const loginRouter = require("./controllers/login");
 const middleware = require("./utils/middleware");
 const logger = require("./utils/logger");
 const mongoose = require("mongoose");
-const morgan = require("morgan");
-
-morgan.token("body", (request, _) => {
-  return JSON.stringify(request.body);
-});
 
 if (process.env.NODE_ENV !== "test") {
+  const morgan = require("morgan");
+
+  morgan.token("body", (request, _) => {
+    return JSON.stringify(request.body);
+  });
+
   app.use(
     morgan(
       ":method :url :status :res[content-length] - :response-time ms :body"
@@ -48,6 +49,12 @@ app.use(middleware.tokenExtractor);
 app.use("/api/blogs", blogsRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/login", loginRouter);
+// app.use("/api/testing", testingRouter);
+
+if (process.env.NODE_ENV === "test") {
+  const testingRouter = require("./controllers/testing");
+  app.use("/api/testing", testingRouter);
+}
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
