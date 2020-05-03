@@ -3,13 +3,15 @@ const jwt = require("jsonwebtoken");
 const Blog = require("../models/blog");
 const User = require("../models/user");
 
-blogsRouter.get("/", async (_, response) => {
-  const blogs = await Blog.find({}).populate("user", { username: 1, name: 1 });
+blogsRouter.get("/", async (_request, response) => {
+  const blogs = await Blog.find({})
+    .populate("user", { username: 1, name: 1 })
+    .populate("comments");
   return response.json(blogs);
 });
 
 blogsRouter.get("/:id", async (request, response) => {
-  const blog = await Blog.findById(request.params.id);
+  const blog = await Blog.findById(request.params.id).populate("comments");
   if (blog) {
     return response.json(blog);
   } else {
@@ -30,12 +32,14 @@ blogsRouter.put("/:id", async (request, response) => {
   if (!body.title || !body.url) {
     return response.status(400).json({ error: "name or url missing" });
   }
+
   const blog = {
     title: body.title,
     author: body.author,
     url: body.url,
     likes: body.likes || 0,
     date: new Date(),
+    // TODO: user: body.user.id?
   };
   const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, {
     new: true,
@@ -92,5 +96,7 @@ blogsRouter.delete("/:id", async (request, response) => {
   await blog.deleteOne();
   return response.status(204).end();
 });
+
+blogsRouter.post("/:id/comments", async (request, response) => {});
 
 module.exports = blogsRouter;
