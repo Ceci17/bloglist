@@ -46,6 +46,19 @@ blogsRouter.put("/:id", async (request, response) => {
   return response.json(updatedBlog);
 });
 
+blogsRouter.patch("/:id", async (request, response) => {
+  const body = request.body;
+
+  if (!body.likes) {
+    return;
+  }
+
+  const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, {
+    $set: { likes: body.likes },
+  });
+  return response.json(updatedBlog);
+});
+
 blogsRouter.post("/", async (request, response) => {
   const body = request.body;
 
@@ -96,6 +109,6 @@ blogsRouter.delete("/:id", async (request, response) => {
   return response.status(204).end();
 });
 
-blogsRouter.post("/:id/comments", async (request, response) => {});
+// blogsRouter.post("/:id/comments", async (request, response) => {});
 
 module.exports = blogsRouter;

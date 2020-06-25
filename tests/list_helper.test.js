@@ -18,8 +18,8 @@ describe("total likes", () => {
         url:
           "http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html",
         likes: 5,
-        __v: 0
-      }
+        __v: 0,
+      },
     ];
 
     const result = listHelper.totalLikes(listWithOneBlog);
@@ -43,7 +43,7 @@ test("correctly returns blog with most likes", () => {
   const mostLikes = {
     title: "Canonical string reduction",
     author: "Edsger W. Dijkstra",
-    likes: 12
+    likes: 12,
   };
 
   const result = listHelper.favoriteBlog(blogs);
@@ -53,7 +53,7 @@ test("correctly returns blog with most likes", () => {
 test("correcty returns author with most blogs", () => {
   const mostBlogs = {
     author: "Robert C. Martin",
-    blogs: 3
+    blogs: 3,
   };
 
   const result = listHelper.mostBlogs(blogs);
@@ -63,7 +63,7 @@ test("correcty returns author with most blogs", () => {
 test("correcty returns author with most likes", () => {
   const mostLikes = {
     author: "Edsger W. Dijkstra",
-    likes: 12
+    likes: 12,
   };
 
   const result = listHelper.mostLikes(blogs);

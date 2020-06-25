@@ -21,7 +21,6 @@ commentsRouter.post("/:id/comments", async (request, response) => {
   const blog = await Blog.findById(blogId);
 
   const savedComment = await comment.save();
-  console.log("savedComment", savedComment);
 
   //   const updatedComment = {
   //     id: savedComment._id,

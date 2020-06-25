@@ -9,6 +9,8 @@ const Blog = require("../models/blog");
 const User = require("../models/user");
 const helper = require("../utils/test_helper");
 
+// TODO: Refactor tests
+
 describe("login", () => {
   test("it should login successfully with correct credentials", async () => {
     await api
